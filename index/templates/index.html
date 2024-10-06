@@ -1,0 +1,452 @@
+
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+     <style>body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color:white;
+      /*background-image:url('/static/Home.jpg'); Replace 'your-image.jpg' with the path to your image */
+      background-size: cover; /* Cover the entire viewport */
+      background-repeat: no-repeat; /* Prevent the background image from repeating */
+      background-position: center; /* Center the background image */
+     }
+  
+  .whatsapp-icon {
+    width: 35px; /* Set the desired width of the icon */
+    height: 35px; /* Set the desired height of the icon */
+    background: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg') no-repeat center center;
+    background-size: contain;
+    display: inline-block;
+}
+.call-link {
+  text-decoration: none;
+  color: #007BFF;
+  font-size: 15px;
+  font-family: Arial, sans-serif;
+}
+.call-icon {
+  width: 40px; /* Increase the width of the image */
+  height: 40px; /* Increase the height of the image */
+  vertical-align: middle; /* Align the icon vertically in the middle */
+  margin-right: 8px; /* Add some space to the right of the icon */
+  border-radius: 50%; /* Make the icon round */
+  padding: 4px; /* Optional: Add some padding inside the icon */
+}
+. {
+  font-size: 1px; /* Adjust this value to your preferred size */
+}
+#menu-mobile.custom-size {  /* The container of menu list */
+  width: 80%; /* Custom width */
+  max-width: 500px; /* Custom max width */
+  height: auto; /* Custom height based on content */
+  max-height: 50vh; /* Custom max height */
+}
+
+.scroll-actions {
+  position: fixed;
+  top: 50%;
+  right: 0px; /* Adjust this value to control how close it is to the scrollbar */
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Adjust spacing between buttons */
+  z-index: 1000;
+}
+
+.scroll-actions img {
+  width: 30px; /* Adjust size as needed */
+  height: 30px; /* Adjust size as needed */
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+
+</style>
+    <title>Project</title>
+</head>
+<body>
+  <header class="text-gray-600 body-font">
+    <div class="container mx-auto flex flex-wrap p-2 items-center justify-between ">
+
+      <!-- Logo and Home link -->
+      {% load static %}
+<a href="{% url 'index' %}" class="flex flex-col title-font font-medium items-center text-gray-900 mt-4 ">
+  <img src="{% static 'Name3.png' %}" alt="Logo" class="w-[300px] h-[60px] text-white  bg-white">
+</a>
+  
+      <!-- Mobile menu button -->
+      <div class="md:hidden flex items-center">
+        <button id="menu-button" class="ml-2 hover:text-red-900 text-black text-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 15 15" xmlns="http://www.w3.org/9000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </div>
+  
+      <!-- Mobile navigation menu -->
+      <nav id="menu-mobile" class="fixed inset-0 bg-white border rounded-lg shadow-lg p-4 z-50 hidden custom-size mx-auto mt-8">
+        <button id="close-menu" class="absolute top-10 right-2 text-gray-600 hover:text-gray-900 ">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+        <ul class="flex flex-col mt-12">
+          <li><a href="{% url 'aboutus' %}" class="block py-2 px-4 text-black hover:text-red-900 text-base">ABOUT US</a></li>
+          <li><a href="{% url 'hub' %}" class="block py-1 px-4 text-black hover:text-red-700 text-base">GALLERY</a></li>
+          <li><a href="#" class="block py-2 px-4 text-black hover:text-red-900 text-base">BUDGET CALCULATOR</a></li>
+          <li> <div class="dropdown"> 
+                 <a class="hover:text-red-900 py-2 px-4 text-black text-base cursor-pointer dropdown-button">SERVICE</a>
+  <div class="dropdown-content hidden">
+      <a href="{% url 'interior' %}" class="hover:text-red-900 text-black text-xs">INTERIOR DESIGNING</a>
+      <a href="{% url 'architectural' %}" class="hover:text-red-900 text-black text-xs">ARCHITECTURAL DESIGNING</a>
+      <a href="{% url 'project' %}" class="hover:text-red-900 text-black text-xs">PROJECT MANAGEMENT</a>
+      <a href="{% url 'visu' %}" class="hover:text-red-900 text-black text-xs">3D VISUALIZATION</a>
+      <a href="{% url 'product' %}" class="hover:text-red-900 text-black text-xs">PRODUCT DESIGNING</a>
+  </div>
+        </div>  </li>
+          <li><a href="{% url 'contact' %}" class="block py-2 px-4 text-black hover:text-red-900 text-base">CONTACT US</a></li>  
+        </ul>
+      </nav>
+
+      <!-- Desktop navigation menu -->
+      <div class="hidden md:flex flex-col md:flex-row items-center space-x-3 mt-14">
+        <a href="{% url 'aboutus' %}" class="hover:text-red-900 text-black text-xs">ABOUT US</a>
+        <a href="{% url 'hub' %}" class="hover:text-red-900 text-black text-xs">GALLERY</a>
+        <a href="#" class="hover:text-red-900 text-black text-xs">BUDGET CALCULATOR</a>
+        <div class="dropdown">
+          <a class="hover:text-red-900  text-black text-xs cursor-pointer dropdown-button">SERVICE</a>
+<div class="dropdown-content hidden">
+    <a href="{% url 'interior' %}" class="hover:text-red-900 text-black text-xs">INTERIOR DESIGNING</a>
+    <a href="{% url 'architectural' %}" class="hover:text-red-900 text-black text-xs">ARCHITECTURAL DESIGNING</a>
+    <a href="{% url 'project' %}" class="hover:text-red-900 text-black text-xs">PROJECT MANAGEMENT</a>
+    <a href="{% url 'visu' %}" class="hover:text-red-900 text-black text-xs">3D VISUALIZATION</a>
+    <a href="{% url 'product' %}" class="hover:text-red-900 text-black text-xs">PRODUCT DESIGNING</a>
+</div>
+      </div>      
+        <a href="{% url 'contact' %}" class="hover:text-red-900 text-black text-xs">CONTACT US</a>
+      </div>
+  
+      <!-- Appointment button for desktop -->
+<div class="hidden md:flex items-center space-x-3 md:space-x-4 mt-10 md:mt-10">
+  <button class="inline-flex items-center text-black  bg-[#CFC4B2]  border-0 py-1 px-3 focus:outline-none hover:bg-[#D2B48C] rounded text-xs mt-4 md:mt-0">
+    <a href="{% url 'booking' %}" class="text-black">GET FREE ESTIMATE</a>
+    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+      <path d="M5 12h14M12 5l7 7-7 7"></path>
+    </svg>
+</button>
+
+</div>
+
+<!-- Appointment button for mobile -->
+<div class="flex md:hidden items-center space-x-3 md:space-x-4  md:mt-0">
+  <button class="inline-flex items-center text-black bg-[#CFC4B2] border-0 py-1 px-3 focus:outline-none hover:bg-gray-400 rounded text-xs mt-12 md:mt-0">
+    <a href="{% url 'booking' %}">GET FREE ESTIMATE</a>
+    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+      <path d="M5 12h14M12 5l7 7-7 7"></path>
+    </svg>
+  </button>
+</div>
+
+
+        <!-- social icons -->
+        <div id="scroll-actions" class="scroll-actions">
+          <a href="https://wa.me/919970440113" class="whatsapp-link" target="_blank">
+            <img src="{% static 'whatsapplogo.png' %}" alt="WhatsApp" class="w-6 h-6">
+          </a>
+          <a href="tel:+1234567890" class="call-link">
+            <img src="{% static 'callicon.png' %}" alt="Call" class="w-6 h-6">
+          </a>
+        </div>  
+      </div>
+    </div> 
+   <!-- Line for Mobile Screens
+<div class="block md:hidden w-[400px] border-t-[2px] border-[#CFC4B2] -mt-2 md:mb-0 ml-8 mr-48"></div>-->
+
+<!-- Line for desktop Screens -->
+<div class="hidden md:block w-[1025px] border-t-[2px] border-[#CFC4B2] -mt-2 md:mb-0 ml-8 mr-48"></div>
+
+  </header>
+  <!-- Hero and text section for desktop -->
+<section id="desktop-section" class="text-gray-500 body-font hidden">       
+  <div class="container mx-auto flex px-2 md:py-6 md:flex-row flex-col items-center ml-12 mt-4 ">
+    <div class="lg:max-w-2xl lg:w-full md:w-full w-full"> 
+        {% load static %}
+        <img class="object-cover object-center rounded w-full h-auto" alt="hero" src="{% static 'mainbg.jpg' %}">
+    </div>
+    <div class="lg:flex-grow md:w-5/12 lg:pr-4 md:pr-4 flex flex-col md:text-center items-center text-center mb-16 md:mb-0 lg:ml-6">
+      <h1 class="title-font sm:text-sm text-sm mb-4 font-medium text-gray-900">
+        WELCOME TO 
+          <br class="hidden lg:inline-block text-sm">THE DESIGN ASPECT 
+      </h1>
+      
+      <p class="mb-8 leading-relaxed text-xs md:text-center">  
+        A LEADING ARCHITECTURAL INTERIOR DESIGN FIRM IN MUMBAI.<br>
+        WE DON'T JUST DESIGN SPACES,<br>
+        WE TRANSFORM YOUR INEVITABLE DREAM INTO REALITY.
+      </p>
+
+     <div class="flex justify-center">
+        <button class="ml-3 inline-flex text-black bg-[#CFC4B2] border-0 py-3 px-2 focus:outline-none hover:bg-gray-400 rounded text-xs text-center w-52">
+            <a href="{% url 'booking' %}">TALK TO OUR DESIGN EXPERT</a>
+        </button>
+        <button class="ml-3 inline-flex text-black bg-[#CFC4B2] border-0 py-3 px-4 focus:outline-none hover:bg-gray-400 rounded text-xs text-center w-52">
+            <a href="{% url 'booking' %}">MEET OUR DESIGN EXPERT</a>
+        </button>
+    </div>
+    </div> 
+  </div>
+</section>                                                                                                                    
+
+<!-- Hero and text section for mobile -->
+<section id="mobile-section" class="text-gray-500 body-font hidden ">       
+  <div class="container mx-auto flex px-2 md:py-6 md:flex-row flex-col items-center ml-1">
+    <div class="lg:max-w-2xl lg:w-full md:w-full w-full"> 
+        {% load static %}
+        <img class="object-cover object-center rounded w-full h-auto" alt="hero" src="{% static 'mainbg.jpg' %}">
+    </div>
+    <div class="lg:flex-grow md:w-1/2 lg:pr-15 md:pr-16 flex flex-col md:text-center items-center text-center mb-12 md:mb-0 lg:ml-16 mt-10">
+      <h1 class="title-font sm:text-sm text-sm mb-4 font-medium text-gray-900">
+        WELCOME TO 
+          <br class="hidden lg:inline-block text-sm">THE DESIGN ASPECT 
+      </h1>
+      
+      <p class="mb-8 leading-relaxed text-xs md:text-center">  
+        A LEADING ARCHITECTURAL INTERIOR DESIGN FIRM IN MUMBAI.<br>
+        WE DON'T JUST DESIGN SPACES,<br>
+        WE TRANSFORM YOUR INEVITABLE DREAM INTO REALITY.
+      </p>
+      <div class="flex justify-center">
+        <button class="ml-2 inline-flex text-black bg-[#CFC4B2] border-0 py-3 px-4 pl-3 pr-1 focus:outline-none hover:bg-gray-400 rounded text-[10px] text-center w-44">
+            <a href="{% url 'booking' %}">TALK TO OUR DESIGN EXPERT</a>
+        </button>
+        <button class="ml-3 inline-flex text-black bg-[#CFC4B2] border-0 py-3 px-4 focus:outline-none hover:bg-gray-400 rounded text-[10px] text-center w-44">
+            <a href="{% url 'booking' %}">MEET OUR DESIGN EXPERT</a
+        </button>
+    </div>
+    </div> 
+  </div>
+</section>
+
+     <!-- Desktop The section of steps for booking -->
+     <section id="booking-steps-desktop" class="text-gray-600 body-font hidden">
+     <div class="container px-5 py-16 mx-auto">
+      <div class="text-center mb-12">
+        <h1 class="text-base text-black">
+         YOUR DREAM SPACE IS 4 SIMPLE STEPS AWAY !
+        </h1>
+      </div>
+          <div class="flex flex-wrap -m-10">
+            <div class="p-4 lg:w-1/4 md:w-1/2">
+              <div class="h-full flex flex-col items-center text-center">
+                <img alt="team" class="flex-shrink-0 rounded-lg w-30 h-30  object-cover object-center mb-4" src="{% static 'step1.jpg' %}">
+                <div class="w-full">
+                  <h4 class=" text-xs  text-gray-900">
+                    <span style="font-size: 14px;">1:</span> BOOK A CONSULTATION</h4>
+                </div>
+              </div>
+            </div>
+            <div class="p-4 lg:w-1/4 md:w-1/2">
+              <div class="h-full flex flex-col items-center text-center">
+                <img alt="team" class="flex-shrink-0 rounded-lg w-30 h-30  object-cover object-center mb-4" src="{% static 'step2.jpg' %}">
+                <div class="w-full">
+                  <h2 class="text-xs text-gray-900"> 
+                    <span style="font-size: 14px;">2:</span> MEET OUR DESIGNERS</h2>
+                </div>
+              </div>
+            </div>
+            <div class="p-4 lg:w-1/4 md:w-1/2">
+              <div class="h-full flex flex-col items-center text-center">
+                <img alt="team" class="flex-shrink-0 rounded-lg w-30 h-30  object-cover object-center mb-4" src="{% static 'step3.jpg' %}">
+                <div class="w-full">
+                  <h2 class="text-xs text-gray-900"> 
+                    <span style="font-size: 14px;">3:</span> PERSONALISE YOUR DESIGNS</h2>
+                </div>
+              </div>
+            </div>
+            <div class="p-4 lg:w-1/4 md:w-1/2">
+              <div class="h-full flex flex-col items-center text-center">
+                <img alt="team" class="flex-shrink-0 rounded-lg w-30 h-30  object-cover object-center mb-4" src="{% static 'step4.jpg' %}">
+                <div class="w-full">
+                  <h2 class="text-xs text-gray-900"> 
+                    <span style="font-size: 14px;">4:</span> MOVE IN</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-center -mt-4 mb-8">
+            <button class="inline-flex items-center bg-[#CFC4B2] border-0 py-1 px-3 focus:outline-none hover:bg-gray-400 rounded text-[10px] mt-4 md:mt-0">
+                <a href="{% url 'booking' %}">BOOK A FREE CONSULTATION</a>
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                </svg>
+            </button> 
+        </div>
+        
+      </div>
+      </section>
+      <!-- Mobile The section of steps for booking -->
+<section id="booking-steps-mobile" class="text-gray-600 body-font hidden">
+  <div class="text-center mb-12 ">
+    <h1 class="text-base text-black">
+     YOUR DREAM SPACE IS 4 SIMPLE STEPS AWAY !
+    </h1>
+  </div>
+  <div class="container px-5 py-20 mx-auto -mt-20">
+    <div class="flex flex-wrap -m-2 justify-center">
+      <!-- Step 1 -->
+      <div class="p-2 w-1/2 md:w-1/4">
+        <div class="h-full flex flex-col items-center text-center">
+          <img alt="step1" class="flex-shrink-0 rounded-lg w-44 h-44 object-cover object-center mb-2" src="{% static 'step1.jpg' %}">
+          <div class="w-full">
+            <h4 class="text-xs text-gray-900">
+              <span style="font-size: 14px;">1:</span> BOOK A CONSULTATION
+            </h4>
+          </div>
+        </div>
+      </div>
+      <!-- Step 2 -->
+      <div class="p-2 w-1/2 md:w-1/4">
+        <div class="h-full flex flex-col items-center text-center">
+          <img alt="step2" class="flex-shrink-0 rounded-lg w-44 h-44 object-cover object-center mb-2" src="{% static 'step2.jpg' %}">
+          <div class="w-full">
+            <h4 class="text-xs text-gray-900">
+              <span style="font-size: 14px;">2:</span> MEET OUR DESIGNERS
+            </h4>
+          </div>
+        </div>
+      </div>
+      <!-- Step 3 -->
+      <div class="p-2 w-1/2 md:w-1/4">
+        <div class="h-full flex flex-col items-center text-center">
+          <img alt="step3" class="flex-shrink-0 rounded-lg w-44 h-44 object-cover object-center mb-2" src="{% static 'step3.jpg' %}">
+          <div class="w-full">
+            <h4 class="text-xs text-gray-900">
+              <span style="font-size: 14px;">3:</span> PERSONALISE YOUR DESIGNS
+            </h4>
+          </div>
+        </div>
+      </div>
+      <!-- Step 4 -->
+      <div class="p-2 w-1/2 md:w-1/4">
+        <div class="h-full flex flex-col items-center text-center">
+          <img alt="step4" class="flex-shrink-0 rounded-lg w-44 h-44 object-cover object-center mb-2" src="{% static 'step4.jpg' %}">
+          <div class="w-full">
+            <h4 class="text-xs text-gray-900">
+              <span style="font-size: 14px;">4:</span> MOVE IN
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="flex justify-center -mt-10 mb-8">
+      <button class="inline-flex items-center bg-[#CFC4B2] border-0 py-1 px-3 focus:outline-none hover:bg-gray-900 rounded text-[10px] mt-4 md:mt-0">
+          <a href="{% url 'booking' %}">BOOK A FREE CONSULTATION</a>
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+      </button> 
+  </div>
+  
+</div>
+</section>
+     <!-- javascript for mobile screen -->
+      <script>
+          // for steps for booking
+        function toggleBookingSteps() {
+          const desktopSection = document.getElementById('booking-steps-desktop');
+          const mobileSection = document.getElementById('booking-steps-mobile');
+        
+          if (window.innerWidth >= 1024) { // For desktop screens
+            desktopSection.classList.remove('hidden');
+            mobileSection.classList.add('hidden');
+          } else { // For mobile screens
+            desktopSection.classList.add('hidden');
+            mobileSection.classList.remove('hidden');
+          }
+        }
+        
+        // Run on initial load
+        toggleBookingSteps();
+        
+        // Run on window resize
+        window.addEventListener('resize', toggleBookingSteps);
+        
+             // for hero image and text
+        document.addEventListener("DOMContentLoaded", function() {
+          function toggleSections() {
+              var desktopSection = document.getElementById("desktop-section");
+              var mobileSection = document.getElementById("mobile-section");
+      
+              if (window.innerWidth >= 768) { // Desktop screen size
+                  desktopSection.style.display = "block";
+                  mobileSection.style.display = "none";
+              } else { // Mobile screen size
+                  desktopSection.style.display = "none";
+                  mobileSection.style.display = "block";
+              }
+          }
+      
+          // Run on initial load
+          toggleSections();
+      
+          // Run on window resize
+          window.addEventListener("resize", toggleSections);
+      });
+              // for menu botton
+        document.getElementById('menu-button').addEventListener('click', function() {
+          document.getElementById('menu-mobile').classList.toggle('hidden');
+        });
+      
+        document.getElementById('close-menu').addEventListener('click', function() {
+          document.getElementById('menu-mobile').classList.add('hidden');
+        });
+        //for dropdown list
+       
+          // Toggle dropdown visibility on click
+          document.querySelector('.dropdown-button').addEventListener('click', function() {
+              document.querySelector('.dropdown-content').classList.toggle('hidden');
+          });
+      
+      
+      </script>      
+</body>
+</html>
+{% endblock content %}

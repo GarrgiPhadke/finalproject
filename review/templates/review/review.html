@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Review</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image:url('/static/reviewbg.webp');
+            background-color: #f2f2f2; /* Set background color */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff; /* Set container background color */
+            padding: 20px;
+            border-radius: 8px; /* Add some rounded corners to the container */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+        }
+
+        .review {
+            margin-bottom: 20px; /* Add spacing between reviews */
+            padding: 10px; /* Add padding to each review */
+            border: 1px solid #ccc; /* Add border to each review */
+            border-radius: 8px; /* Add rounded corners to each review */
+        }
+
+        h1, h2 {
+            color:#A52A2A;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Reviews</h1>
+        <div>
+            {% for review in reviews %}
+                <div class="review">
+                    <strong style="color:#FF0000;">{{ review.author }}</strong>
+                    <p>{{ review.content }}</p>
+                    <p style="color:#FFA500;">{{ review.created_at }}</p>
+                </div>
+            {% empty %}
+                <p>No reviews yet.</p>
+            {% endfor %}
+        </div>
+        <h2>Add a Review</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit Review</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+     <style>body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color:white;
+      /*background-image:url('/static/Home.jpg'); Replace 'your-image.jpg' with the path to your image */
+      background-size: cover; /* Cover the entire viewport */
+      background-repeat: no-repeat; /* Prevent the background image from repeating */
+      background-position: center; /* Center the background image */
+     }
+  
+  .whatsapp-icon {
+    width: 35px; /* Set the desired width of the icon */
+    height: 35px; /* Set the desired height of the icon */
+    background: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg') no-repeat center center;
+    background-size: contain;
+    display: inline-block;
+}
+.call-link {
+  text-decoration: none;
+  color: #007BFF;
+  font-size: 15px;
+  font-family: Arial, sans-serif;
+}
+.call-icon {
+  width: 40px; /* Increase the width of the image */
+  height: 40px; /* Increase the height of the image */
+  vertical-align: middle; /* Align the icon vertically in the middle */
+  margin-right: 8px; /* Add some space to the right of the icon */
+  border-radius: 50%; /* Make the icon round */
+  padding: 4px; /* Optional: Add some padding inside the icon */
+}
+. {
+  font-size: 1px; /* Adjust this value to your preferred size */
+}
+#menu-mobile.custom-size {  /* The container of menu list */
+  width: 80%; /* Custom width */
+  max-width: 500px; /* Custom max width */
+  height: auto; /* Custom height based on content */
+  max-height: 50vh; /* Custom max height */
+}
+
+.scroll-actions {
+  position: fixed;
+  top: 50%;
+  right: 0px; /* Adjust this value to control how close it is to the scrollbar */
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Adjust spacing between buttons */
+  z-index: 1000;
+}
+
+.scroll-actions img {
+  width: 30px; /* Adjust size as needed */
+  height: 30px; /* Adjust size as needed */
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+
+</style>
+    <title>Project</title>
+</head>
+<body>
+  <header class="text-gray-600 body-font">
+    <div class="container mx-auto flex flex-wrap p-2 items-center justify-between ">
+
+      <!-- Logo and Home link -->
+      {% load static %}
+<a href="{% url 'index' %}" class="flex flex-col title-font font-medium items-center text-gray-900 mt-4 ">
+  <img src="{% static 'Name3.png' %}" alt="Logo" class="w-[300px] h-[60px] text-white  bg-white">
+</a>
+  
+      <!-- Mobile menu button -->
+      <div class="md:hidden flex items-center">
+        <button id="menu-button" class="ml-2 hover:text-red-900 text-black text-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 15 15" xmlns="http://www.w3.org/9000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </div>
+  
+      <!-- Mobile navigation menu -->
+      <nav id="menu-mobile" class="fixed inset-0 bg-white border rounded-lg shadow-lg p-4 z-50 hidden custom-size mx-auto mt-8">
+        <button id="close-menu" class="absolute top-10 right-2 text-gray-600 hover:text-gray-900 ">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+        <ul class="flex flex-col mt-12">
+          <li><a href="{% url 'aboutus' %}" class="block py-2 px-4 text-black hover:text-red-900 text-base">ABOUT US</a></li>
+          <li><a href="{% url 'hub' %}" class="block py-1 px-4 text-black hover:text-red-700 text-base">GALLERY</a></li>
+          <li><a href="#" class="block py-2 px-4 text-black hover:text-red-900 text-base">BUDGET CALCULATOR</a></li>
+          <li> <div class="dropdown"> 
+                 <a class="hover:text-red-900 py-2 px-4 text-black text-base cursor-pointer dropdown-button">SERVICE</a>
+  <div class="dropdown-content hidden">
+      <a href="{% url 'interior' %}" class="hover:text-red-900 text-black text-xs">INTERIOR DESIGNING</a>
+      <a href="{% url 'architectural' %}" class="hover:text-red-900 text-black text-xs">ARCHITECTURAL DESIGNING</a>
+      <a href="{% url 'project' %}" class="hover:text-red-900 text-black text-xs">PROJECT MANAGEMENT</a>
+      <a href="{% url 'visu' %}" class="hover:text-red-900 text-black text-xs">3D VISUALIZATION</a>
+      <a href="{% url 'product' %}" class="hover:text-red-900 text-black text-xs">PRODUCT DESIGNING</a>
+  </div>
+        </div>  </li>
+          <li><a href="{% url 'contact' %}" class="block py-2 px-4 text-black hover:text-red-900 text-base">CONTACT US</a></li>  
+        </ul>
+      </nav>
+
+      <!-- Desktop navigation menu -->
+      <div class="hidden md:flex flex-col md:flex-row items-center space-x-3 mt-14">
+        <a href="{% url 'aboutus' %}" class="hover:text-red-900 text-black text-xs">ABOUT US</a>
+        <a href="{% url 'hub' %}" class="hover:text-red-900 text-black text-xs">GALLERY</a>
+        <a href="#" class="hover:text-red-900 text-black text-xs">BUDGET CALCULATOR</a>
+        <div class="dropdown">
+          <a class="hover:text-red-900 text-black text-xs cursor-pointer dropdown-button">SERVICE</a>
+<div class="dropdown-content hidden">
+    <a href="{% url 'interior' %}" class="hover:text-red-900 text-black text-xs">INTERIOR DESIGNING</a>
+    <a href="{% url 'architectural' %}" class="hover:text-red-900 text-black text-xs">ARCHITECTURAL DESIGNING</a>
+    <a href="{% url 'project' %}" class="hover:text-red-900 text-black text-xs">PROJECT MANAGEMENT</a>
+    <a href="{% url 'visu' %}" class="hover:text-red-900 text-black text-xs">3D VISUALIZATION</a>
+    <a href="{% url 'product' %}" class="hover:text-red-900 text-black text-xs">PRODUCT DESIGNING</a>
+</div>
+      </div>      
+        <a href="{% url 'contact' %}" class="hover:text-red-900 text-black text-xs">CONTACT US</a>
+      </div>
+  
+      <!-- Appointment button for desktop -->
+<div class="hidden md:flex items-center space-x-3 md:space-x-4 mt-10 md:mt-10">
+  <button class="inline-flex items-center text-black  bg-[#CFC4B2]  border-0 py-1 px-3 focus:outline-none hover:bg-[#D2B48C] rounded text-xs mt-4 md:mt-0">
+    <a href="{% url 'booking' %}" class="text-black">GET FREE ESTIMATE</a>
+    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+      <path d="M5 12h14M12 5l7 7-7 7"></path>
+    </svg>
+</button>
+
+</div>
+
+<!-- Appointment button for mobile -->
+<div class="flex md:hidden items-center space-x-3 md:space-x-4  md:mt-0">
+  <button class="inline-flex items-center text-black bg-[#CFC4B2] border-0 py-1 px-3 focus:outline-none hover:bg-gray-400 rounded text-xs mt-12 md:mt-0">
+    <a href="{% url 'booking' %}">GET FREE ESTIMATE</a>
+    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+      <path d="M5 12h14M12 5l7 7-7 7"></path>
+    </svg>
+  </button>
+</div>
+
+
+        <!-- social icons -->
+        <div id="scroll-actions" class="scroll-actions">
+          <a href="https://wa.me/919970440113" class="whatsapp-link" target="_blank">
+            <img src="{% static 'whatsapplogo.png' %}" alt="WhatsApp" class="w-6 h-6">
+          </a>
+          <a href="tel:+1234567890" class="call-link">
+            <img src="{% static 'callicon.png' %}" alt="Call" class="w-6 h-6">
+          </a>
+        </div>  
+      </div>
+    </div> 
+   <!-- Line for Mobile Screens
+<div class="block md:hidden w-[400px] border-t-[2px] border-[#CFC4B2] -mt-2 md:mb-0 ml-8 mr-48"></div>-->
+
+<!-- Line for desktop Screens -->
+<div class="hidden md:block w-[1025px] border-t-[2px] border-[#CFC4B2] -mt-2 md:mb-0 ml-8 mr-48"></div>
+
+  </header>
+  <section class="text-gray-600 body-font -mt-16">
+    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center ">
+      <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+        {% load static %}
+        <img class="object-cover object-center rounded" alt="hero" src="{% static 'Interior.jpg' %}">
+      </div>
+      <div class="lg:flex-grow md:w-1/2 lg:pl-6 md:pl-6 flex flex-col md:items-start md:text-left items-center text-center mt-2 ">
+        <small>Our Services</small>
+        <h1 class="title-font sm:text-base text-base mb-4 font-medium text-gray-900">Interior Designing 
+        </h1>
+        <p class=" text-xs leading-relaxed">A Truly Crafted Life Is All About Expressing Your Thought, Lifestyle, And Identity Through The Work Of Art. As The Creator Who Appreciates Every Single Detail And Quality, We Refresh The Way Of Living By Designing A Brand New Experience With Long Lasting Value At Its Finest.
+         We Have A Team Of Interior Designers Who Are Not Only Talented But Also Have A Lot Of Experience. Our Core Service Portfolio Prominently Features Interior Design And Services, Catering To Diverse Briefs, Scales, And Industries, Spanning From Residential To Commercial Projects, Encompassing Private Residences To Expansive Showrooms, Our Steadfast Commitment Lies In Crafting People-Centric And Brand-Driven Designs Across Every Project Undertaken.
+           <br> • How Important Is Interior Design Services?
+           <br>Interior Design Services Hold Significant Importance In Shaping The Functionality, Aesthetics, And Overall Ambiance Of Various Spaces. Beyond Merely Enhancing Visual Appeal, Interior Designers Adeptly Optimize Spatial Layouts, Ensuring Efficient And Ergonomic Arrangements. Moreover, These Professionals Engage Closely With Clients To Infuse Spaces With Personalized Elements That Reflect Individual Tastes And Lifestyles. The Impact Of Interior Design Extends Beyond Personalization; It Also Adds Tangible Value To Properties.
+            Furthermore, Well-Designed Interiors Contribute To Improved Quality Of Life, Fostering Comfort, Productivity, And Emotional Well-Being. In Commercial Settings, Interior Design Plays A Pivotal Role In Shaping Brand Identity And Customer Experience, While Sustainable Design Practices Address Environmental Concerns.
+        </p>
+        <div class="space-x-10 ">
+          <a href="{% url 'booking' %}" class="bg-white text-black border border-black font-semibold text-sm py-1 px-3 rounded transition duration-300 ease-in-out hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400">
+              START MY PROJECT
+          </a>
+          </a></div>
+
+      </div>
+    </div>
+  </section>
+  
+</body>
+</html>
